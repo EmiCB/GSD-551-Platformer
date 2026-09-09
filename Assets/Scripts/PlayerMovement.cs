@@ -4,30 +4,20 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField]
-    private float movementAmount = 1.0f;
+    private float movementSpeed = 1.0f;
     
     void Start() {
         
     }
 
-    void Update()
-    {
-        bool isMoveRightPressed = Keyboard.current.dKey.wasPressedThisFrame; 
-        if (isMoveRightPressed) { MoveRight(); }
-        
-        bool moveLeftPressed = Keyboard.current.aKey.wasPressedThisFrame;
-        if (moveLeftPressed) { MoveLeft(); }
-    }
-    
-    /** Moves the player to the right by its movementAmount in world space. */
-    private void MoveRight() {
-        Debug.Log("MoveRight was called.");
-        gameObject.transform.position += Vector3.right * movementAmount;
-    }
-    
-    /** Moves the player to the left by its movementAmount in world space. */
-    private void MoveLeft() {
-        Debug.Log("MoveLeft was called.");
-        gameObject.transform.position += Vector3.left * movementAmount;
+    void Update() {
+        // Handle continuous movement on the horizontal axis
+        float horizontalInput = Keyboard.current.dKey.ReadValue() -  Keyboard.current.aKey.ReadValue();
+
+        if (horizontalInput != 0) {
+            Vector3 movementDirection = Vector3.right * horizontalInput;
+            Vector3 movementVelocity = movementSpeed * movementDirection;
+            transform.position += movementVelocity * Time.deltaTime;
+        }
     }
 }
