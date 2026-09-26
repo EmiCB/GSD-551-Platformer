@@ -17,6 +17,9 @@ public class PlayerMovement : MonoBehaviour {
     [SerializeField] [Tooltip("The layer that defines the 'ground'.")]
     private LayerMask groundLayer;
     
+    private SpriteRenderer playerSpriteRenderer;
+    private Animator playerAnimator;
+    
     /// <summary> Stores the user's current horizontal input value. </summary>
     private float horizontalInput;
     /// <summary> Stores if player is currently detected on any ground objects.</summary>
@@ -29,12 +32,16 @@ public class PlayerMovement : MonoBehaviour {
         if (groundCheck == null) { groundCheck = transform.Find("GroundCheck"); }
         if (groundLayer == 0) { groundLayer = LayerMask.GetMask("Ground"); }
         
+        if (playerSpriteRenderer == null) { playerSpriteRenderer = GetComponent<SpriteRenderer>(); }
+        if (playerAnimator == null) { playerAnimator = GetComponent<Animator>(); }
+        
         isGrounded = false;
         isJumping = false;
     }
 
     void Update() {
         horizontalInput = Keyboard.current.dKey.ReadValue() -  Keyboard.current.aKey.ReadValue();
+        
         if (Keyboard.current.spaceKey.wasPressedThisFrame) {
             isJumping = true;
         }
@@ -44,8 +51,19 @@ public class PlayerMovement : MonoBehaviour {
         CheckGround();
         Move(horizontalInput);
         if (isJumping) { Jump(); }
+        AnimatePlayer();
     }
 
+    private void AnimatePlayer() {
+        if (horizontalInput != 0) {
+            playerSpriteRenderer.flipX = horizontalInput < 0;
+            playerAnimator.SetBool("isMoving", true);
+        }
+        else {
+            playerAnimator.SetBool("isMoving", false);
+        }
+    }
+    
     private void OnDrawGizmosSelected() {
         if (groundCheck == null) {
             Debug.LogError("ERR: No reference assigned for `groundCheck`.");
@@ -60,7 +78,7 @@ public class PlayerMovement : MonoBehaviour {
         }
         Gizmos.DrawWireSphere(groundCheck.position, groundCheckRadius);
     }
-
+    
     /// <summary>
     /// Handles the player's movement via the Unity physics system.
     /// </summary>
