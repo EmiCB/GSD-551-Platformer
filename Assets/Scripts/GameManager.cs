@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviour {
     private void SetPlayerGameplay(bool isEnabled) {
         player.enabled = isEnabled;
         playerRb.simulated = isEnabled;
+        player.GetComponent<Animator>().speed = isEnabled ? 1.0f : 0.0f;
     }
 
     public void ResetGameplay() {
