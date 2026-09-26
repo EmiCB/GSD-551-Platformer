@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private void UpdateCollectibleText() {
-        collectiblesText.text = "Collectible Status: " + _currentCollectibles + "/" + requiredCollectibles;
+        collectiblesText.text = "Collectibles: " + _currentCollectibles + "/" + requiredCollectibles;
     }
     
     private void HandleGameOver(CanvasGroup resultsPanel) {

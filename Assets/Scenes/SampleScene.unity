@@ -1652,6 +1652,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ResetGameplay
       objectReference: {fileID: 0}
+    - target: {fileID: 3353848939899899617, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4224184349459742187, guid: 703fcefdf38ab43d296a39ab2f115cfc, type: 3}
     - target: {fileID: 4050682583342022085, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
       propertyPath: m_Name
       value: LosePanel
@@ -1660,6 +1664,14 @@ PrefabInstance:
       propertyPath: m_text
       value: You Lose
       objectReference: {fileID: 0}
+    - target: {fileID: 4473261394771396511, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4224184349459742187, guid: 703fcefdf38ab43d296a39ab2f115cfc, type: 3}
+    - target: {fileID: 6278713008127033414, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4224184349459742187, guid: 703fcefdf38ab43d296a39ab2f115cfc, type: 3}
     - target: {fileID: 6754536413242009230, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
       propertyPath: m_Name
       value: YouLoseText
@@ -2711,8 +2723,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Collectibles: 0 / 3*'
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: cee7b993bc8004ec4a52d54958272c92, type: 2}
+  m_sharedMaterial: {fileID: 3309527746246717012, guid: cee7b993bc8004ec4a52d54958272c92, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2736,8 +2748,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 60
+  m_fontSizeBase: 60
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2804,6 +2816,14 @@ PrefabInstance:
     - target: {fileID: 4050682583342022085, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
       propertyPath: m_Name
       value: WinPanel
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158694708368033561, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
+      propertyPath: m_overrideHtmlColors
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4158694708368033561, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
+      propertyPath: m_enableVertexGradient
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6827364185527002718, guid: a299b382d10364df38c9b65fa2821fd5, type: 3}
       propertyPath: m_Pivot.x
