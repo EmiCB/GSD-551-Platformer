@@ -113,3 +113,6 @@ InitTestScene*.unity*
 .idea/**/*.iml
 .idea/**/contentModel.xml
 .idea/**/modules.xml
+
+# MacOS
+**/.DS_Store

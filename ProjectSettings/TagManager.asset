@@ -50,6 +50,9 @@ TagManager:
   - name: Player
     uniqueID: 1188042877
     locked: 0
+  - name: Collectibles
+    uniqueID: 3729395867
+    locked: 0
   m_RenderingLayers:
   - Default
   m_MigratedRenderPipelines: []
