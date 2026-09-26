@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     private bool _isGameOver = false;
     private Vector3 _playerStartPosition = new Vector3();
     private List<Collectible> _collectibles = new List<Collectible>();
+    private List<GatedPlatform> _gatedPlatforms = new List<GatedPlatform>();
 
     [SerializeField][Tooltip("The TMP component where the current collectible status is displayed to the player.")]
     private TextMeshProUGUI collectiblesText;
@@ -54,6 +55,11 @@ public class GameManager : MonoBehaviour {
         _currentCollectibles++;
         UpdateCollectibleText();
 
+        // check if any new gates are unlocked
+        foreach (GatedPlatform platform in _gatedPlatforms) {
+            platform.UpdateGatedPlatformState(_currentCollectibles);
+        }
+        
         // Check for player win condition
         if (_currentCollectibles >= requiredCollectibles) {
             HandleGameOver(youWinUI);
@@ -98,6 +104,11 @@ public class GameManager : MonoBehaviour {
         }
         _currentCollectibles = 0;
         UpdateCollectibleText();
+
+        foreach (GatedPlatform platform in _gatedPlatforms) {
+            platform.UpdateGatedPlatformState(_currentCollectibles);
+        }
+        
         _isGameOver = false;
         
         // reset UI
@@ -107,5 +118,9 @@ public class GameManager : MonoBehaviour {
 
     public void RegisterCollectible(Collectible collectible) {
         _collectibles.Add(collectible);
+    }
+    
+    public void RegisterGatedPlatform(GatedPlatform platform) {
+        _gatedPlatforms.Add(platform);
     }
 }
