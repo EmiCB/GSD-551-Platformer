@@ -28,6 +28,13 @@ public class GameManager : MonoBehaviour {
     [SerializeField]
     private Rigidbody2D playerRb;
     
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip backgroundMusic;
+    [SerializeField] 
+    private AudioClip menuMusic;
+    
     void Start() {
         // send custom errors if required references are missing
         if (collectiblesText == null) { Debug.LogError("Collectibles Text reference is not set!"); }
@@ -37,6 +44,8 @@ public class GameManager : MonoBehaviour {
         // find player references automatically if they are missing
         if (player == null) { player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>(); }
         if (playerRb == null) { playerRb = player.GetComponent<Rigidbody2D>(); }
+        
+        if (audioSource == null) { gameObject.GetComponent<AudioSource>(); }
         
         // save any initial values for resetting
         _playerStartPosition = player.transform.position;
@@ -85,6 +94,8 @@ public class GameManager : MonoBehaviour {
     private void SetUIState(CanvasGroup panel, bool isEnabled) {
         panel.alpha = isEnabled ? 1 : 0;
         panel.gameObject.SetActive(isEnabled);
+        AudioClip music = isEnabled ? menuMusic : backgroundMusic;
+        PlayAudioClip(music, true);
     }
 
     private void SetPlayerGameplay(bool isEnabled) {
@@ -114,6 +125,9 @@ public class GameManager : MonoBehaviour {
         // reset UI
         SetUIState(youWinUI, false);
         SetUIState(youLoseUI, false);
+        
+        // reset sound
+        PlayAudioClip(backgroundMusic, true);
     }
 
     public void RegisterCollectible(Collectible collectible) {
@@ -122,5 +136,11 @@ public class GameManager : MonoBehaviour {
     
     public void RegisterGatedPlatform(GatedPlatform platform) {
         _gatedPlatforms.Add(platform);
+    }
+    
+    private void PlayAudioClip(AudioClip clip, bool isLooping) {
+        audioSource.clip = clip;
+        audioSource.loop = isLooping;
+        audioSource.Play();
     }
 }
