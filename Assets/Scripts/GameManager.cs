@@ -34,6 +34,12 @@ public class GameManager : MonoBehaviour {
     private AudioClip backgroundMusic;
     [SerializeField] 
     private AudioClip menuMusic;
+    [SerializeField]
+    private AudioClip deathSfx;
+    [SerializeField]
+    private AudioClip collectSfx;
+    [SerializeField]
+    private AudioClip platformSfx;
     
     void Start() {
         // send custom errors if required references are missing
@@ -63,6 +69,7 @@ public class GameManager : MonoBehaviour {
     public void CollectItem() {
         _currentCollectibles++;
         UpdateCollectibleText();
+        player.PlayAudioClip(collectSfx, false);
 
         // check if any new gates are unlocked
         foreach (GatedPlatform platform in _gatedPlatforms) {
@@ -88,6 +95,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public void LoseGame() {
+        player.PlayAudioClip(deathSfx, false);
         HandleGameOver(youLoseUI);
     }
 

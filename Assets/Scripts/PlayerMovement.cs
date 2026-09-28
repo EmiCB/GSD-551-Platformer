@@ -20,6 +20,13 @@ public class PlayerMovement : MonoBehaviour {
     private SpriteRenderer playerSpriteRenderer;
     private Animator playerAnimator;
     
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip walkingSfx;
+    [SerializeField]
+    private AudioClip jumpingSfx;
+    
     /// <summary> Stores the user's current horizontal input value. </summary>
     private float horizontalInput;
     /// <summary> Stores if player is currently detected on any ground objects.</summary>
@@ -28,12 +35,13 @@ public class PlayerMovement : MonoBehaviour {
     
     void Start() {
         // automatically find references in case they are not assigned in the inspector.
-        if (playerRb == null) { playerRb = GetComponent<Rigidbody2D>(); }
         if (groundCheck == null) { groundCheck = transform.Find("GroundCheck"); }
         if (groundLayer == 0) { groundLayer = LayerMask.GetMask("Ground"); }
         
+        if (playerRb == null) { playerRb = GetComponent<Rigidbody2D>(); }
         if (playerSpriteRenderer == null) { playerSpriteRenderer = GetComponent<SpriteRenderer>(); }
         if (playerAnimator == null) { playerAnimator = GetComponent<Animator>(); }
+        if (audioSource == null) { audioSource = GetComponent<AudioSource>(); }
         
         isGrounded = false;
         isJumping = false;
@@ -98,6 +106,7 @@ public class PlayerMovement : MonoBehaviour {
         
         Vector2 jumpVelocity = new Vector2(playerRb.linearVelocityX, jumpSpeed);
         playerRb.linearVelocity = jumpVelocity;
+        PlayAudioClip(jumpingSfx, false);
         isJumping = false;
     }
 
@@ -107,5 +116,11 @@ public class PlayerMovement : MonoBehaviour {
     private void CheckGround() {
         Collider2D detectedGround = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
         isGrounded = detectedGround != null;
+    }
+
+    public void PlayAudioClip(AudioClip clip, bool isLooping) {
+        audioSource.clip = clip;
+        audioSource.loop = isLooping;
+        audioSource.Play();
     }
 }
